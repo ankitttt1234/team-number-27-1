@@ -66,6 +66,50 @@ passport.serializeUser(function(user, done) {
 	});
   });
 
+
+
+
+
+  app.get("/dashboard",function(req,res){
+
+	//console.log(req.user.user);
+	Admin.findOne({username:req.user.username}, function(err,found){
+		if(err){
+		   
+			res.redirect("/");
+		} else {
+
+			if(found){
+		//var students;
+		Hostel.countDocuments({},function(err,cnt){
+			//console.log(cnt);
+			//students=cnt;
+		var today = new Date();
+		var dd = String(today.getDate()).padStart(2, '0');
+		var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+		var yyyy = today.getFullYear();
+		today = yyyy+"-"+mm+"-"+dd;
+
+			Attd.find({date:today},function(err,data){
+				if(err){
+					console.log(err);
+					res.render("result",{success:false,msg:"Server Error please try again",link:"/dashboard"});
+				} else{
+					if(data.length===0){
+						res.render("dashboard",{students:cnt,present:0});
+					} else{
+						res.render("dashboard",{students:cnt,present:data[0].present.length});
+				}
+				}
+			});
+
+			
+		});
+	}
+}
+	
+});
+});
 app.get("/logout",function(req,res){
 	req.logout();
     res.redirect("/");
