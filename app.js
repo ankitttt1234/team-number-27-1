@@ -103,6 +103,12 @@ const IssueSchema=new mongoose.Schema({
 	room:Number,
 	issue:String
 });
+const roomSchema = new mongoose.Schema({
+	blockName:String,
+	roomNumber:Number,
+	count:Number
+
+});
 
 
 const Hostel=mongoose.model("Hostel",HostelSchema);
@@ -118,6 +124,15 @@ const Infra = mongoose.model("Infra",InfraSchema);
 const CLG = mongoose.model("CLG",clgSchema);
 
 const BLOCK = mongoose.model("BLOCK",blockSchema);
+
+const ROOM = mongoose.model("ROOM",roomSchema);
+
+// const room = new ROOM({
+// 	blockName:"Block-5",
+// 	roomNumber:305,
+// 	count:1
+// })
+// room.save();
 
 // const block = new BLOCK({
 // 	name:"Block-5",
@@ -506,8 +521,16 @@ app.post("/add",function(req,res){
 			if(err){
 				console.log(err);
 			} else{
+				//console.log(user);
+			}
+		})
+		ROOM.findOneAndUpdate({"blockName":data.blockName,"roomNumber":data.roomNo},{$inc:{"count":1}},function(err,user){
+			if(err){
+				console.log(err);
+			} else{
 				console.log(user);
 			}
+
 		})
 
 	data.save(function(err,data){
@@ -548,6 +571,7 @@ app.get("/add/:num/:room",function(req,res){
 
 
 
+
 app.get("/dashboard",function(req,res){
 	
 	//console.log(req.user.user);
@@ -569,6 +593,22 @@ app.get("/dashboard",function(req,res){
 			Attd.find({date:today},function(err,data){
 				CLG.find({},function(err,user){
 					BLOCK.find({},function(err,b){
+						ROOM.find({"count":5},function(err,use){
+							var block=[0,0,0,0,0];
+							use.forEach( (i) =>{
+								if(i.blockName==="Block-1")
+								block[0]++;
+								if(i.blockName==="Block-2")
+								block[1]++;
+								if(i.blockName==="Block-3")
+								block[2]++;
+								if(i.blockName==="Block-4")
+								block[3]++;
+								if(i.blockName==="Block-5")
+								block[4]++;
+							})
+						
+						
 				
 			
 				if(err){
@@ -576,11 +616,13 @@ app.get("/dashboard",function(req,res){
 					res.render("result",{success:false,msg:"Server Error please try again",link:"/dashboard"});
 				} else{
 					if(data.length===0){
-						res.render("dashboard",{students:cnt,present:0});
+						
+						res.render("dashboard",{students:cnt,present:0,arr:user,b:b,block:block});
 					} else{
-						res.render("dashboard",{students:cnt,present:data[0].present.length,arr:user,b:b});
+						res.render("dashboard",{students:cnt,present:data[0].present.length,arr:user,b:b,block:block});
 				}
 				}
+			});
 			});
 			});
 		
@@ -593,17 +635,6 @@ app.get("/dashboard",function(req,res){
 
 }
 	});
-});
-
-app.get("/profile/:roll",function(req,res){
-	Hostel.find({roll:req.params.roll},function(err,data){
-		if(err){
-			console.log(err);
-			res.render("result",{success:false,msg:"Server Error please try again",link:"/dashboard"});
-		} else{
-			res.render("profile",{data:data});
-		}
-	})
 });
 
 
@@ -738,9 +769,15 @@ app.get("/outing-students",function(req,res){
 	
 });
 
+app.get("/outing-all",function(req,res){
+	res.render("selectHostel");
+})
 
 app.post("/outing-all",function(req,res){
-	Hostel.find({},function(err,user){
+
+	console.log(req.body.Hostel);
+
+	Hostel.find({"blockName":req.body.Hostel},function(err,user){
 		user.forEach((i)=>{
 			var student = new Outing({
 				blockName:i.blockName,
