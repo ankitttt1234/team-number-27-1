@@ -1,0 +1,48 @@
+<%- include('partials/header');-%>
+<style type="text/css">
+a{
+	color: white;
+}
+.card{
+	margin-left: 30px;
+	margin-right: 30px;
+	margin-top: 30px;
+}
+.hvr{
+	color:black;
+	background-color:grey;	
+}
+
+.hvr:hover{
+	background-color:#76f59e;
+	color:white;
+}
+
+
+</style>
+
+	<section id="content-wrapper" class="container">
+
+      <h3 style="text-align:center;">Hostels</h3>
+      <div class="row" >
+		<% for(var i=0;i<Block.length;i++){%>
+			
+			<div style="max-width: 18rem;"  class="hvr card  mb-3 " >
+				<a href="/blocks/<%=Block[i].blockName%>">
+				<div class="card-header">CMR GROUP</div>
+				<div class="card-body">
+					 
+				  <h5 class="card-title"><%=Block[i].blockName%></h5>
+				  
+				  <p class="card-text">You can add new students into this hostel by clicking on it.</p>
+				</div>
+			</a>
+			  </div>
+		
+		<%}%>
+
+      </div>
+    </section>
+	
+
+<%- include('partials/footer');-%>
