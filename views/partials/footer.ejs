@@ -1,0 +1,80 @@
+</div>
+
+<script type="text/javascript">
+	const $button  = document.querySelector('#sidebar-toggle');
+const $wrapper = document.querySelector('#wrapper');
+
+$button.addEventListener('click', (e) => {
+  e.preventDefault();
+  $wrapper.classList.toggle('toggled');
+});
+(function(document) {
+	'use strict';
+
+	var LightTableFilter = (function(Arr) {
+
+		var _input;
+
+		function _onInputEvent(e) {
+			_input = e.target;
+			var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+			Arr.forEach.call(tables, function(table) {
+				Arr.forEach.call(table.tBodies, function(tbody) {
+					Arr.forEach.call(tbody.rows, _filter);
+				});
+			});
+		}
+
+		function _filter(row) {
+			var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+			row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+		}
+
+		return {
+			init: function() {
+				var inputs = document.getElementsByClassName('light-table-filter');
+				Arr.forEach.call(inputs, function(input) {
+					input.oninput = _onInputEvent;
+				});
+			}
+		};
+	})(Array.prototype);
+
+	document.addEventListener('readystatechange', function() {
+		if (document.readyState === 'complete') {
+			LightTableFilter.init();
+		}
+	});
+
+})(document);
+
+// Add active class to the current button (highlight it)
+var header = document.getElementById("sidebar-wrapper");
+var btns = header.getElementsByClassName("btns");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function() {
+  var current = document.getElementsByClassName("active");
+  current[0].className = current[0].className.replace(" active", "");
+  this.className += " active";
+  });
+}
+
+$(".num").counterUp({delay:5,time:500});
+
+</script>
+<section id="content-wrapper" class="container">
+<div class="row">
+   <div class=" col-lg-6 col-md-6 col-sm-12" >
+<div id="piechart_3d"  style="height: 450px;"></div>
+
+   </div>
+   <div class=" col-lg-6 col-md-6 col-sm-12"  >
+	<div id="piechart_4d" style="height: 450px;" ></div>
+</div>
+</div>
+<section id="content-wrapper" class="container">
+<div id="columnchart_material" class=" col-lg-6 col-md-6 col-sm-12" style="width: 500px; height: 450px; margin-left: 10%;" ></div>
+</body>
+
+
+</html>

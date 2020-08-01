@@ -1,0 +1,58 @@
+<%- include('partials/header');-%>
+
+<style type="text/css">
+img{
+    
+    width: 300px;
+    height: 200px;
+}
+.row{
+    margin-top: 50px;
+    margin-left: 30px;
+}
+</style>
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <form method="POST" action="/give-outing">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTmQKAu7_4Ab5_I_cK-uVMGJucYHYKt7ilF6YeGglPjKQafGg57&usqp=CAU" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">Provide Outing</h5>
+                      <p class="card-text">Use when you need to provide request to a student for outing</p>
+                      <button  type ="submit" class="btn btn-primary">Click here</button>
+                    </div>
+                  </div>
+            </form>
+        </div>
+        <div class="col">
+            <form method="POST" action="/outing-students">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_QHRGJA2442iJRRAQu5hE3HXwx-2bZR5UxBQDzxP6LJUmpu3V&usqp=CAU" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">Outing Details</h5>
+                      <p class="card-text">Use when you need to check students in outing or update outing details</p>
+                      <button  type ="submit" class="btn btn-primary">Click here</button>
+                    </div>
+                  </div>
+            </form>
+        </div>
+        <div class="col">
+            <form method="GET" action="/outing-all">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTpzqG-MY3HCg1Zi4bLkMAHHUh6GKibx6JBGsM3L3DvHg80f-Hh&usqp=CAU" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">Outing To All</h5>
+                      <p class="card-text">Use when you need to provide outing to all students</p>
+                      <button  type ="submit" class="btn btn-primary">Click here</button>
+                    </div>
+                  </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer');-%>

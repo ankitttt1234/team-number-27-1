@@ -1,0 +1,46 @@
+
+<%- include('partials/header');-%>
+
+<section id="content-wrapper" class="container">
+    <div class="row" >
+        <div class="col">
+
+        <h3 style="text-align:center;">Attendance for <%= date %></h3>
+                <span>Search</span>
+      <input type="search" class="light-table-filter" data-table="order-table" placeholder="Filter">
+          <br><br>
+            <table class="order-table table">
+            <thead>
+              <tr>
+                <th>Roll No.</th>
+                <th>Name</th>
+                <th>Block</th>
+                <th>Room</th>
+                <th>Guardian</th>
+
+              </tr>
+              </thead>
+              <%for(var k=0;k<data.length;k++ ) {%>
+              <% for(var i=0;i<data[k].present.length;i++) { %>
+
+              <%  for(var j=0;j<info.length;j++){ %>
+                     <% if(info[j].roll===data[k].present[i]) {%>
+                      <tr>
+                          <td><a href=/profile/<%= info[j].roll %>><%=info[j].roll%></a></td>
+                          <td><%=info[j].name%></td>
+                          <td><%=info[j].blockName%></td>
+                          <td><%=info[j].roomNo%></td>
+                          <td><%=info[j].guardian%></td>
+                      </tr>
+
+              <%  } }%>
+              <%  }} %>
+            </table>
+            
+        </div>
+    </div>
+</section>
+
+<%- include('partials/footer');-%>
+
+
